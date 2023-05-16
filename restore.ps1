@@ -1,4 +1,4 @@
-Write-Host "I'm assuming now that you're booted into lineage recovery on a fresh install of the stock rom, press enter to begin."
+Write-Host "I'm assuming now that you're booted into lineage recovery on a fresh install of your previous rom, please also make sure that you booted into the first time setup of the rom, and then rebooted into recovery before continuing, press enter to begin."
 Read-Host "Press Enter to continue"
 Write-Host "Preparing..."
 adb push .\tools\lz4 /tmp/lz4
