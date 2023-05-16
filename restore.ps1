@@ -38,7 +38,7 @@ adb push $metadatafile /data/metadata.img
 Write-Host "Decompressing backup..."
 adb shell /tmp/lz4 -d /data/backup.tar.lz4 /data/backup.tar
 Write-Host "Restoring data..."
-adb shell tar xvf /data/backup.tar
+adb shell "tar xvf /data/backup.tar" > $null 2>&1
 Write-Host "Restoring metadata..."
 adb shell dd if=/data/metadata.img of=/dev/block/platform/14700000.ufs/by-name/metadata
 Write-Host "Cleaning up..."

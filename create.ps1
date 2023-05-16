@@ -13,7 +13,7 @@ adb shell mv /data/system/locksettings.db /tmp/locksettings.db
 adb shell mv /data/system/locksettings.db-journal /tmp/locksettings.db-journal
 
 Write-Host "Creating tar of data..."
-adb shell tar -cf /data/media/0/newbackup.tar /data/adb /data/apex /data/app /data/data /data/media /data/misc /data/misc_ce /data/misc_de /data/system /data/system_ce /data/system_de /data/user_de /data/vendor
+adb shell "tar -cf /data/media/0/newbackup.tar /data/adb /data/apex /data/app /data/data /data/media /data/misc /data/misc_ce /data/misc_de /data/system /data/system_ce /data/system_de /data/user_de /data/vendor" > $null 2>&1
 
 Write-Host "Compressing..."
 adb shell /tmp/lz4 -1 /data/media/0/newbackup.tar /data/media/0/newbackup.tar.lz4
