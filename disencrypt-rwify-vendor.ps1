@@ -13,6 +13,7 @@ if ($fileDialog.ShowDialog() -eq 'OK') {
     Write-Output "Pushing required tools..."
     adb push $PSScriptRoot\tools\e2fsck /tmp/e2fsck
     adb push $PSScriptRoot\tools\resize2fs /tmp/resize2fs
+    adb push $PSScriptRoot\tools\bc /tmp/bc
     Write-Output "Setting permissions..."
     adb shell "chmod +x /tmp/*"
 
