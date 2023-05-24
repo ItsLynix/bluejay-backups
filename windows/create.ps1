@@ -2,7 +2,7 @@ Write-Host "I'm assuming you're already booted into lineage recovery with adb en
 Read-Host "Press Enter to continue"
 
 Write-Host "Preparing..."
-adb push .\tools\lz4 /tmp/lz4
+adb push ..\tools\lz4 /tmp/lz4
 adb shell chmod +x /tmp/lz4
 
 Write-Host "Mounting data..."
@@ -22,7 +22,7 @@ Write-Host "lz4 created, now to metadata"
 adb shell dd if=/dev/block/platform/14700000.ufs/by-name/metadata of=/data/media/0/backupmetadata.img
 
 Write-Host "Pulling files..."
-$backupFolder = "$PSScriptRoot\backups"
+$backupFolder = "$PSScriptRoot\..\backups"
 $dateString = Get-Date -Format "yyyyMMdd_HHmmss"
 $newName = "data_" + $dateString + ".tar.lz4"
 $newMetadataName = "metadata_" + $dateString + ".img"

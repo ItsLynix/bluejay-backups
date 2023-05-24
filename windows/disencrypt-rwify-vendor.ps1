@@ -9,11 +9,14 @@ $fileDialog.Filter = "IMG Files (*.img)|*.img"
 if ($fileDialog.ShowDialog() -eq 'OK') {
     $vendor_img = $fileDialog.FileName
 
+    # Get the parent folder of the script's location
+    $parentFolder = Split-Path -Parent $PSScriptRoot
+
     # Pushing required tools to device and setting permissions...
     Write-Output "Pushing required tools..."
-    adb push $PSScriptRoot\tools\e2fsck /tmp/e2fsck
-    adb push $PSScriptRoot\tools\resize2fs /tmp/resize2fs
-    adb push $PSScriptRoot\tools\bc /tmp/bc
+    adb push "$parentFolder/tools/e2fsck" /tmp/e2fsck
+    adb push "$parentFolder/tools/resize2fs" /tmp/resize2fs
+    adb push "$parentFolder/tools/bc" /tmp/bc
     Write-Output "Setting permissions..."
     adb shell "chmod +x /tmp/*"
 

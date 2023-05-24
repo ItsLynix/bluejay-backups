@@ -1,33 +1,37 @@
-Write-Host "I'm assuming now that you're booted into lineage recovery on a fresh install of your previous rom, please also make sure that you booted into the first time setup of the rom, and then rebooted into recovery before continuing, press enter to begin."
+Write-Host "I'm assuming now that you're booted into lineage recovery on a fresh install of your previous ROM. Please make sure that you booted into the first-time setup of the ROM and then rebooted into recovery before continuing."
 Read-Host "Press Enter to continue"
+
+# Get the parent folder of the script's location
+$parentFolder = Split-Path -Parent $PSScriptRoot
+
 Write-Host "Preparing..."
-adb push .\tools\lz4 /tmp/lz4
+adb push "$parentFolder/tools/lz4" /tmp/lz4
 adb shell chmod +x /tmp/lz4
 
-# get data files list
-$dataFiles = Get-ChildItem -Path $PSScriptRoot\backups\data\ -Filter *.tar.lz4 | Sort-Object LastWriteTime -Descending
+# Get data files list
+$dataFiles = Get-ChildItem -Path "$parentFolder/backups/data/" -Filter *.tar.lz4 | Sort-Object LastWriteTime -Descending
 
-# get selected
+# Get selected data file
 Write-Host "Choose a data file:"
-for ($i=0; $i -lt $dataFiles.Count; $i++) {
-    Write-Host "$i. $($dataFiles[$i].Name)  (Last Modified: $($dataFiles[$i].LastWriteTime))"
+for ($i = 0; $i -lt $dataFiles.Count; $i++) {
+    Write-Host "$i. $($dataFiles[$i].Name) (Last Modified: $($dataFiles[$i].LastWriteTime))"
 }
 [int]$dataFileIndex = Read-Host "Enter the number of the file you want to use"
 
-# set datafile variable
+# Set datafile variable
 $datafile = $dataFiles[$dataFileIndex].FullName
 
-# get metadata files list
-$metadataFiles = Get-ChildItem -Path $PSScriptRoot\backups\metadata\ -Filter *.img | Sort-Object LastWriteTime -Descending
+# Get metadata files list
+$metadataFiles = Get-ChildItem -Path "$parentFolder/backups/metadata/" -Filter *.img | Sort-Object LastWriteTime -Descending
 
-# get selected
+# Get selected metadata file
 Write-Host "Choose a metadata file:"
-for ($i=0; $i -lt $metadataFiles.Count; $i++) {
-    Write-Host "$i. $($metadataFiles[$i].Name)  (Last Modified: $($metadataFiles[$i].LastWriteTime))"
+for ($i = 0; $i -lt $metadataFiles.Count; $i++) {
+    Write-Host "$i. $($metadataFiles[$i].Name) (Last Modified: $($metadataFiles[$i].LastWriteTime))"
 }
 [int]$metadataFileIndex = Read-Host "Enter the number of the file you want to use"
 
-# set metadatafile variable
+# Set metadatafile variable
 $metadatafile = $metadataFiles[$metadataFileIndex].FullName
 
 Write-Host "Mounting data..."
