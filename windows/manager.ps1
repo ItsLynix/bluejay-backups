@@ -10,24 +10,24 @@ function Show-Menu {
 
 # create function
 function Create-Backup {
-    $script = Join-Path (Split-Path $MyInvocation.MyCommand.Path) "windows\create.ps1"
+    $script = Join-Path $PSScriptRoot "create.ps1"
     & $script
 }
 
 # restore function
 function Restore-Backup {
-    $script = Join-Path (Split-Path $MyInvocation.MyCommand.Path) "windows\restore.ps1"
+    $script = Join-Path $PSScriptRoot "restore.ps1"
     & $script
 }
 
 # patch function
 function Patch-Vendor {
-    $script = Join-Path (Split-Path $MyInvocation.MyCommand.Path) "windows\disencrypt-rwify-vendor.ps1"
+    $script = Join-Path $PSScriptRoot "disencrypt-rwify-vendor.ps1"
     & $script
 }
 
 # main script
-$warningFilePath = Join-Path (Split-Path $MyInvocation.MyCommand.Path) "backup_warning.txt"
+$warningFilePath = Join-Path $PSScriptRoot "backup_warning.txt"
 
 if (!(Test-Path $warningFilePath)) {
     Write-Host "To use this backup system, you need to modify your vendor partition to allow your data to be decrypted. Note that this means you'll have to flash the modified vendor with fastboot and then wipe data to make sure the data is not encrypted. You will also need to flash that vendor image every time you restore to the ROM. This backup system cannot be used to restore backups on a different ROM than the one it was taken on. This is useful for testing other ROMs and going back to your original one."

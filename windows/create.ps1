@@ -2,7 +2,7 @@ Write-Host "I'm assuming you're already booted into lineage recovery with adb en
 Read-Host "Press Enter to continue"
 
 Write-Host "Preparing..."
-adb push ..\tools\lz4 /tmp/lz4
+adb push $PSScriptRoot\..\tools\lz4 /tmp/lz4
 adb shell chmod +x /tmp/lz4
 
 Write-Host "Mounting data..."
